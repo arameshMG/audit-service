@@ -4,11 +4,9 @@ from db import init_db, log_event, query_events
 app = Flask(__name__)
 init_db()
 
-
 @app.route("/health")
 def health():
     return jsonify({"status": "ok"})
-
 
 @app.route("/events", methods=["POST"])
 def create_event():
@@ -27,7 +25,6 @@ def create_event():
 
     return jsonify({"status": "logged", "eventId": event_id}), 201
 
-
 @app.route("/events", methods=["GET"])
 def get_events():
     user_identifier = request.args.get("user")
@@ -41,9 +38,7 @@ def get_events():
         status=status,
         limit=limit
     )
-
     return jsonify({"count": len(results), "events": results})
-
 
 if __name__ == "__main__":
     app.run(debug=True)
