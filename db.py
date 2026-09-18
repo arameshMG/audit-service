@@ -5,12 +5,10 @@ from datetime import datetime, timezone
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
-
 def get_connection():
     if not DATABASE_URL:
         raise ValueError("DATABASE_URL environment variable is not set")
     return psycopg2.connect(DATABASE_URL)
-
 
 def init_db():
     conn = get_connection()
@@ -29,7 +27,6 @@ def init_db():
     conn.commit()
     cursor.close()
     conn.close()
-
 
 def log_event(event_type, user_identifier, status, details=None, source_service=None):
     conn = get_connection()
@@ -51,7 +48,6 @@ def log_event(event_type, user_identifier, status, details=None, source_service=
     cursor.close()
     conn.close()
     return event_id
-
 
 def query_events(user_identifier=None, event_type=None, status=None, limit=100):
     conn = get_connection()
